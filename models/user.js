@@ -8,7 +8,8 @@ const bcrypt =require('bcrypt-nodejs')
 const UserSchema = new Schema({
     email: {type: String, unique: true, lowercase: true, required: true},
     password: {type: String, select: true, required: true},
-    registerDate: {type: Date, default: Date.now()}
+    registerDate: {type: Date, default: Date.now()},
+    products: [{type: Schema.Types.ObjectId, ref: 'Product'}]
 })
 
 // en este callback "pre"(save) antes de grabar vamos a encriptar el password 

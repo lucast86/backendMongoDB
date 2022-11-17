@@ -1,32 +1,25 @@
+const authService = require('../services/authService')
 const User = require('../models/user')
-const { authService } = require('../services')
-// const { userService } = require('../services')
+const { userService } = require('../services')
+const { validationResult } = require('express-validator')
 
-const register = (req, res) => {
+const register = async (req, res) => {
+    try{
+        const resultValidationReq = validationResult(req)
+        const hasErrors = !resultValidationReq.isEmpty()
+        const { email, password } = req.body
 
-    const { email, password } = req.body 
-    
-    /*
-        funciones de mongo:
-        User.find(): es buscar en la base de datos todos los usaurios
-        User.findOne(): es consultar en la base de datos por un solo usuario
-        newUser.save(): es para grabar el nuevo usuarios
-    */ 
-    User.findOne({ email }, (error, user) => {
-    
-        if(user){
-            return res.status(400).send({ message: `El email ya se encuentra en uso.`})
+        if(hasErrors){
+            return res.status(400).send(resultValidationReq)
         }
 
-        const newUser = new User({ email, password})
-        newUser.save((error) => {
-            if(error){
-            return res.status(500).send({ message: `Se produjo un error al registrar un usuario`, error}) 
-            }
-            res.status(200).send({ message: "El usuario fue creado exitosamente", newUser})
-        })
-    })
-    // userService.register()
+        const result = await userService.register(email, password).catch()
+        res.status(200).send(result)
+
+    }catch(error){
+        res.status(500).send(error)
+    }
+    
     
 }
 
