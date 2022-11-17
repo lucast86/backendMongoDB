@@ -1,5 +1,4 @@
 const mongoose = require('mongoose')
-const { userSchema } = require('../controllers/schemas')
 const Schema = mongoose.Schema
 
 const ProductSchema = new Schema({
@@ -11,4 +10,3 @@ const ProductSchema = new Schema({
 
 module.exports = mongoose.model('Product', ProductSchema)
 
-// 1:30 
