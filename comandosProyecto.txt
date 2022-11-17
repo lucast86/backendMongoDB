@@ -1,0 +1,15 @@
+dependencias package.json
+-npm init
+-npm i --save express
+- npm i --save dotenv
+-npm i --save-dev nodemon  -> ctl+s recarga el proyecto
+-npm i --save luxon  ->       para trabajar con fechas
+-npm i --save mongoose  ->    libreria para conectarnos con mongo
+-npm i --save jwt-simple   ->      "      "  generar token
+-npm i --save bcrypt-nodejs@0.0.3
+
+scripts
+start
+
+
+
